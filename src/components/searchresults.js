@@ -18,8 +18,6 @@ class Searchresults extends React.Component {
     console.log(props.initialValue);
   }
 
-
-
   render() {
     const { message, loading } = this.state;
     const { query } = this.state;
