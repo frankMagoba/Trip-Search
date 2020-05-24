@@ -19,9 +19,9 @@ ReactDOM.render(
           <li>
             <Link to="/">Search</Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/trips">Trips</Link>
-          </li>
+          </li> */}
           <li>
             <Link to="/tripdetails">Trip Details</Link>
           </li>

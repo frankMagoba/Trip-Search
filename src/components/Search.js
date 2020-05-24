@@ -1,7 +1,4 @@
 import React from "react";
-import "../Search.css";
-import axios from "axios";
-import Loader from "../loader.gif";
 import Trips from "../info-json";
 import { Checkbox, Radio } from "semantic-ui-react";
 import { Link } from "react-router-dom";
@@ -20,14 +17,16 @@ class Search extends React.Component {
   }
   handleOnInputChange = (event) => {
     const query = event.target.value;
-    if (!query) {
-      this.setState({ query, results: {}, message: "" });
-    } else {
-      this.setState({ query, loading: true, message: "" }, () => {
-        // this.fetchSearchResults(1, query);
-      });
-    }
   };
+
+  handleChange = (event) => {
+    const query = event.target.value;
+    console.log(event);
+    // console.log(Trips);
+    const tr= Trips.filter(trip => trip.status === "COMPLETED" );
+    console.log(tr);
+  };
+
 
   tripFilters = () => {
     const { data, value } = this.state;
@@ -74,9 +73,6 @@ class Search extends React.Component {
     const Morethanfifteent = () => (
       <Radio toggle label="More tham 20 min" onChange={this.handleChange} />
     );
-
-    // const opentrips = <Searchresults trips={Trips} />;
-    const opentrips = () => <Searchresults trips={Trips} />;
     return (
       <div>
         {" "}
@@ -124,9 +120,7 @@ class Search extends React.Component {
             </div>
           </div>{" "}
         </div>
-        {/* <button onClick={opentrips}>Search</button> */}
-        <Button className="ml-4" variant="success">Search</Button>
-        {opentrips}
+        <Link to="/trips">Search</Link>
       </div>
     );
   };
