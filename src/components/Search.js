@@ -6,6 +6,7 @@ import Trips from "../info-json";
 import { Checkbox, Radio } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Searchresults from "./searchresults";
+import { Button } from "react-bootstrap";
 
 class Search extends React.Component {
   constructor() {
@@ -44,34 +45,34 @@ class Search extends React.Component {
       />
     );
     const Underthree = () => (
-      <Radio label="Under 3 Km" onChange={this.handleChange} />
+      <Radio toggle label="Under 3 Km" onChange={this.handleChange} />
     );
     const Anydistance = () => (
-      <Radio label="Any" onChange={this.handleChange} />
+      <Radio toggle label="Any" onChange={this.handleChange} />
     );
     const Threetoeight = () => (
-      <Radio label="3 to 8 Km" onChange={this.handleChange} />
+      <Radio toggle label="3 to 8 Km" onChange={this.handleChange} />
     );
     const Eighttofifteen = () => (
-      <Radio label="6 to 15 Km" onChange={this.handleChange} />
+      <Radio toggle label="6 to 15 Km" onChange={this.handleChange} />
     );
     const Morethanfifteen = () => (
-      <Radio label="More tham 15km" onChange={this.handleChange} />
+      <Radio toggle label="More tham 15km" onChange={this.handleChange} />
     );
     const Underthreet = () => (
-      <Radio label="Under 5 min" onChange={this.handleChange} />
+      <Radio toggle label="Under 5 min" onChange={this.handleChange} />
     );
     const Anydistancet = () => (
-      <Radio label="Any" onChange={this.handleChange} />
+      <Radio toggle label="Any" onChange={this.handleChange} />
     );
     const Threetoeightt = () => (
-      <Radio label="5 to 10 min" onChange={this.handleChange} />
+      <Radio toggle label="5 to 10 min" onChange={this.handleChange} />
     );
     const Eighttofifteent = () => (
-      <Radio label="10 to 20 min" onChange={this.handleChange} />
+      <Radio toggle label="10 to 20 min" onChange={this.handleChange} />
     );
     const Morethanfifteent = () => (
-      <Radio label="More tham 20 min" onChange={this.handleChange} />
+      <Radio toggle label="More tham 20 min" onChange={this.handleChange} />
     );
 
     // const opentrips = <Searchresults trips={Trips} />;
@@ -123,27 +124,30 @@ class Search extends React.Component {
             </div>
           </div>{" "}
         </div>
-        <button onClick={opentrips}>Search</button>
+        {/* <button onClick={opentrips}>Search</button> */}
+        <Button className="ml-4" variant="success">Search</Button>
+        {opentrips}
       </div>
     );
   };
   render() {
     return (
-      <div className="container">
-        {/*Heading*/}
-        <h2 className="heading">Trip Search</h2>
-        {/*Search Input*/}
-        <label className="search-label" htmlFor="search-input">
-          <input
-            type="text"
-            id="search-input"
-            placeholder="Search..."
-            onChange={this.handleOnInputChange}
-          />
-          <i className="fa fa-search search-icon" />
-        </label>
-        {this.tripFilters()}
-        <div></div>
+      <div>
+        {" "}
+        <div className="container">
+          {/*Heading*/}
+          <h2 className="heading">Trip Search</h2>
+          {/*Search Input*/}
+          <label className="search-label" htmlFor="search-input">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Search..."
+              onChange={this.handleOnInputChange}
+            />
+          </label>
+          {this.tripFilters()}
+        </div>
       </div>
     );
   }

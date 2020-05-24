@@ -5,7 +5,11 @@ import Search from "./components/Search";
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <div
+        style={{
+          background: "#282c34"
+        }}
+      >
         <Search />
       </div>
     );
