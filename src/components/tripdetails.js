@@ -1,21 +1,17 @@
 import React from "react";
-import "../Search.css";
-import axios from "axios";
-import Loader from "../loader.gif";
-import Trips from "../info-json";
 import { Checkbox, Radio } from "semantic-ui-react";
-import { Link } from "react-router-dom";
-import Searchresults from "./searchresults";
+import "../Search.css";
 
-class Search extends React.Component {
-  constructor() {
-    super();
+class Tripdetails extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
       query: "",
       results: {},
       loading: false,
       message: "",
     };
+    this.cancel = "";
   }
   handleOnInputChange = (event) => {
     const query = event.target.value;
@@ -59,23 +55,20 @@ class Search extends React.Component {
       <Radio label="More tham 15km" onChange={this.handleChange} />
     );
     const Underthreet = () => (
-      <Radio label="Under 5 min" onChange={this.handleChange} />
-    );
-    const Anydistancet = () => (
-      <Radio label="Any" onChange={this.handleChange} />
-    );
-    const Threetoeightt = () => (
-      <Radio label="5 to 10 min" onChange={this.handleChange} />
-    );
-    const Eighttofifteent = () => (
-      <Radio label="10 to 20 min" onChange={this.handleChange} />
-    );
-    const Morethanfifteent = () => (
-      <Radio label="More tham 20 min" onChange={this.handleChange} />
-    );
-
-    // const opentrips = <Searchresults trips={Trips} />;
-    const opentrips = () => <Searchresults trips={Trips} />;
+        <Radio label="Under 5 min" onChange={this.handleChange} />
+      );
+      const Anydistancet = () => (
+        <Radio label="Any" onChange={this.handleChange} />
+      );
+      const Threetoeightt = () => (
+        <Radio label="5 to 10 min" onChange={this.handleChange} />
+      );
+      const Eighttofifteent = () => (
+        <Radio label="10 to 20 min" onChange={this.handleChange} />
+      );
+      const Morethanfifteent = () => (
+        <Radio label="More tham 20min" onChange={this.handleChange} />
+      );
     return (
       <div>
         {" "}
@@ -123,29 +116,19 @@ class Search extends React.Component {
             </div>
           </div>{" "}
         </div>
-        <button onClick={opentrips}>Search</button>
+        <button>Search</button>
       </div>
     );
   };
   render() {
+    const { message, loading } = this.state;
+    const { query } = this.state;
     return (
       <div className="container">
         {/*Heading*/}
-        <h2 className="heading">Trip Search</h2>
-        {/*Search Input*/}
-        <label className="search-label" htmlFor="search-input">
-          <input
-            type="text"
-            id="search-input"
-            placeholder="Search..."
-            onChange={this.handleOnInputChange}
-          />
-          <i className="fa fa-search search-icon" />
-        </label>
-        {this.tripFilters()}
-        <div></div>
+        <h2 className="heading">Trips</h2>
       </div>
     );
   }
 }
-export default Search;
+export default Tripdetails;
