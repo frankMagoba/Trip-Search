@@ -1,87 +1,89 @@
 import React from "react";
-import { Checkbox, Radio } from "semantic-ui-react";
 import "../Search.css";
 import { Card, Button, CardGroup } from "react-bootstrap";
 import { FcFlashOff, FcFlashOn, FcCheckmark, FcDislike } from "react-icons/fc";
 import StarRatings from "react-star-ratings";
-import { Map, GoogleApiWrapper } from "google-maps-react";
 import MapContainer from "./map";
 
 class Tripdetails extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      query: "",
-      results: {},
-      loading: false,
-      message: "",
-    };
-    this.cancel = "";
-  }
-
   render() {
-    const { message, loading } = this.state;
-    const { query } = this.state;
-    const mapStyles = {
-      width: "100%",
-      height: "100%",
-    };
+    console.log(this.props.dataFromParent);
+    const trips = this.props.dataFromParent;
+    console.log(trips);
     return (
       <div>
         <div className="container">
           {/*Heading*/}
           <h2 className="heading">Trip Details</h2>
         </div>
-        <div className="container">
-          <Card className="text-center">
-            <Card.Header as="h5">Time Amount</Card.Header>
-            <Card.Body>
-              <Card.Title>
-                {" "}
-                <FcFlashOn />
-                Source
-              </Card.Title>
-              <Card.Title>
-                {" "}
-                <FcFlashOff />
-                Destination
-              </Card.Title>
-            </Card.Body>
-          </Card>
-          <CardGroup>
-            <Card>
-              <Card.Img variant="top" src="https://hr.hava.bz/trips/c13.jpg" />
-              <Card.Body>
-                <Card.Title>Car Name</Card.Title>
-              </Card.Body>
-            </Card>
-            <Card>
-              <Card.Body>
-                <Card.Text>Distance </Card.Text>
-                <Card.Text>Duration </Card.Text>
-                <Card.Text>Sub total </Card.Text>
-              </Card.Body>
-            </Card>
-            <Card>
-              <Card.Img variant="top" src="https://hr.hava.bz/trips/p13.jpg" />
-              <Card.Body>
-                <Card.Title>Driver Name</Card.Title>
-                <Card.Text>
-                  <StarRatings
-                    rating={2}
-                    starRatedColor="blue"
-                    numberOfStars={5}
-                    isSelectable={false}
-                    name="rating"
-                  />
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </CardGroup>
-          <Card>
-            <MapContainer />
-          </Card>
-        </div>
+        {trips.map((trip) => (
+          <li key={trip.id}>
+            <div className="container">
+              <Card className="text-center">
+                <Card.Header as="h5">
+                  {trip.dropoff_date}
+                  {trip.dropoff_date} {""} {trip.cost_unit}
+                  {trip.cost}
+                </Card.Header>
+                <Card.Body>
+                  <Card.Title>
+                    {" "}
+                    <FcFlashOn />
+                    {trip.pickup_location}
+                  </Card.Title>
+                  <Card.Title>
+                    {" "}
+                    <FcFlashOff />
+                    {trip.dropoff_location}
+                  </Card.Title>
+                </Card.Body>
+              </Card>
+              <CardGroup>
+                <Card>
+                  <Card.Img variant="top" src={trip.car_pic} />
+                  <Card.Body>
+                    <Card.Title>
+                      {trip.car_make}
+                      {trip.car_model}
+                    </Card.Title>
+                  </Card.Body>
+                </Card>
+                <Card>
+                  <Card.Body>
+                    <Card.Text>
+                      Distance {trip.distance}
+                      {trip.distance_unit}
+                    </Card.Text>
+                    <Card.Text>
+                      Duration {trip.duration}
+                      {trip.duration_unit}
+                    </Card.Text>
+                    <Card.Text>
+                      Sub total {trip.cost_unit} {""}
+                      {trip.cost}{" "}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+                <Card>
+                  <Card.Img variant="top" src={trip.driver_pic} />
+                  <Card.Body>
+                    <Card.Title> {trip.driver_name}</Card.Title>
+                    <StarRatings
+                      rating={trip.driver_rating}
+                      starRatedColor="blue"
+                      numberOfStars={5}
+                      isSelectable={false}
+                      name="rating"
+                    />
+                  </Card.Body>
+                </Card>
+              </CardGroup>
+              <Card>
+                <MapContainer />
+              </Card>
+            </div>
+          </li>
+        ))}
       </div>
     );
   }

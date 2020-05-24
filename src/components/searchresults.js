@@ -6,7 +6,7 @@ import { FcFlashOff, FcFlashOn, FcCheckmark, FcDislike } from "react-icons/fc";
 import StarRatings from "react-star-ratings";
 import Trips from "../info-json";
 import { Link } from "react-router-dom";
-
+import Tripdetails from "./tripdetails";
 class Searchresults extends React.Component {
   constructor() {
     super();
@@ -15,11 +15,19 @@ class Searchresults extends React.Component {
     };
   }
 
+  detail(id) {
+    console.log(id);
+    this.setState({
+      data: this.state.data.filter((trip) => trip.id === id),
+    });
+  }
   render() {
     console.log(this.props.dataFromParent);
     const trips = this.props.dataFromParent;
     return (
       <div>
+        <Tripdetails dataFromParent={this.state.data} />
+
         <div className="container">
           {/*Heading*/}
           <h2 className="heading">Trips</h2>
@@ -50,7 +58,10 @@ class Searchresults extends React.Component {
                     isSelectable={false}
                     name="rating"
                   />
-                  <Link to="/tripdetails">View Trip Details</Link>
+                  {/* <Link to="/tripdetails">View Trip Details</Link> */}
+                  <button onClick={() => this.detail(trip.id)}>
+                    View Trip Details
+                  </button>
                 </Card.Body>
                 <Card.Footer className="text-muted">
                   {trip.status}{" "}
