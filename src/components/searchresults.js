@@ -4,11 +4,16 @@ import "../Search.css";
 import { Card, Button } from "react-bootstrap";
 import { FcFlashOff, FcFlashOn, FcCheckmark, FcDislike } from "react-icons/fc";
 import StarRatings from "react-star-ratings";
+import Trips from "../info-json";
 
 class Searchresults extends React.Component {
   constructor(props) {
     super(props);
     console.log(this.props.dataFromParent);
+    this.state = {
+      data: Trips,
+    };
+    console.log(this.state.data);
   }
 
   render() {
@@ -20,33 +25,44 @@ class Searchresults extends React.Component {
         </div>
         <div className="container">
           {/*Heading*/}
-          <Card className="text-center">
-            <Card.Header as="h5">Time</Card.Header>
-            <Card.Body>
-              <Card.Title>
-                {" "}
-                <FcFlashOn />
-                Source
-              </Card.Title>
-              <Card.Title>
-                {" "}
-                <FcFlashOff />
-                Destination
-              </Card.Title>
-                Amount
-                <StarRatings
-                  rating={2}
-                  starRatedColor="blue"
-                  numberOfStars={5}
-                  isSelectable={false}
-                  name="rating"
-                />
-              <Button variant="primary">View Trip Details</Button>
-            </Card.Body>
-            <Card.Footer className="text-muted">
-              Complete <FcCheckmark /> / Cancelled <FcDislike />
-            </Card.Footer>
-          </Card>
+
+          {this.state.data.map((trip) => (
+            <li key={trip.id}>
+              <Card className="text-center">
+                <Card.Header as="h5">{trip.request_date}</Card.Header>
+                <Card.Body>
+                  <Card.Title>
+                    {" "}
+                    <FcFlashOn />
+                    {trip.pickup_location}
+                  </Card.Title>
+                  <Card.Title>
+                    {" "}
+                    <FcFlashOff />
+                    {trip.dropoff_location}
+                  </Card.Title>
+                  {trip.cost_unit} {trip.cost}
+                  <StarRatings
+                    rating={trip.driver_rating}
+                    starRatedColor="blue"
+                    numberOfStars={5}
+                    isSelectable={false}
+                    name="rating"
+                  />
+                  <Button variant="primary">View Trip Details</Button>
+                </Card.Body>
+                <Card.Footer className="text-muted">
+                  {/* Complete <FcCheckmark /> / Cancelled <FcDislike /> */}
+                  {trip.status}{" "}
+                  {trip.status === "COMPLETED" ? (
+                    <FcCheckmark />
+                  ) : (
+                    <FcDislike />
+                  )}
+                </Card.Footer>
+              </Card>
+            </li>
+          ))}
         </div>
       </div>
     );
