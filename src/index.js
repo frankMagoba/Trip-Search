@@ -19,15 +19,9 @@ ReactDOM.render(
           <li>
             <Link to="/">Search</Link>
           </li>
-          {/* <li>
-            <Link to="/trips">Trips</Link>
-          </li> */}
           <li>
             <Link to="/tripdetails">Trip Details</Link>
           </li>
-          {/* <li>
-            <Link to="/map">Map</Link>
-          </li> */}
         </ul>
       </nav>
 

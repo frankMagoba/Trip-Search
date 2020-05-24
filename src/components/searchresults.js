@@ -8,19 +8,10 @@ import StarRatings from "react-star-ratings";
 class Searchresults extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      query: "",
-      results: {},
-      loading: false,
-      message: "",
-    };
-    this.cancel = "";
-    console.log(props.initialValue);
+    console.log(this.props.dataFromParent);
   }
 
   render() {
-    const { message, loading } = this.state;
-    const { query } = this.state;
     return (
       <div>
         <div className="container">
@@ -42,7 +33,6 @@ class Searchresults extends React.Component {
                 <FcFlashOff />
                 Destination
               </Card.Title>
-              <Card.Text>
                 Amount
                 <StarRatings
                   rating={2}
@@ -51,7 +41,6 @@ class Searchresults extends React.Component {
                   isSelectable={false}
                   name="rating"
                 />
-              </Card.Text>
               <Button variant="primary">View Trip Details</Button>
             </Card.Body>
             <Card.Footer className="text-muted">

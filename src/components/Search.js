@@ -12,8 +12,9 @@ class Search extends React.Component {
       query: "",
       results: {},
       loading: false,
-      message: "",
+      data: Trips,
     };
+    // this.handleChanges()
   }
   handleOnInputChange = (event) => {
     const query = event.target.value;
@@ -23,10 +24,14 @@ class Search extends React.Component {
     const query = event.target.value;
     console.log(event);
     // console.log(Trips);
-    const tr= Trips.filter(trip => trip.status === "COMPLETED" );
+    const tr = this.state.data.filter((trip) => trip.status === "COMPLETED");
     console.log(tr);
   };
 
+  handleChanges(event) {
+    var x = document.getElementsByClassName("App");
+    x.style.display = "none";
+  }
 
   tripFilters = () => {
     const { data, value } = this.state;
@@ -141,6 +146,12 @@ class Search extends React.Component {
             />
           </label>
           {this.tripFilters()}
+        </div>
+        <div  style={{
+          display: "none"
+        }}>
+          {" "}
+          <Searchresults dataFromParent={this.state.data} />
         </div>
       </div>
     );
