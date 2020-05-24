@@ -9,29 +9,29 @@ class Search extends React.Component {
   constructor() {
     super();
     this.state = {
-      query: "",
-      results: {},
-      loading: false,
       data: Trips,
     };
-    // this.handleChanges()
+    console.log(this.state.data);
   }
   handleOnInputChange = (event) => {
     const query = event.target.value;
   };
 
-  handleChange = (event) => {
-    const query = event.target.value;
-    console.log(event);
-    // console.log(Trips);
-    const tr = this.state.data.filter((trip) => trip.status === "COMPLETED");
-    console.log(tr);
+  handleCheck = (event) => {
+    this.setState({ data: Trips });
   };
 
-  handleChanges(event) {
-    var x = document.getElementsByClassName("App");
-    x.style.display = "none";
-  }
+  handleThree = (event) => {
+    this.setState({
+      data: this.state.data.filter((trip) => trip.distance < 3),
+    });
+  };
+
+  handleAny = (event) => {
+    this.setState({
+      data: this.state.data.filter((trip) => trip.distance > 0),
+    });
+  };
 
   tripFilters = () => {
     const { data, value } = this.state;
@@ -45,14 +45,14 @@ class Search extends React.Component {
       <Checkbox
         label="Include Cancelled Trips"
         defaultChecked
-        onChange={this.handleChange}
+        onChange={this.handleCheck}
       />
     );
     const Underthree = () => (
-      <Radio toggle label="Under 3 Km" onChange={this.handleChange} />
+      <Radio toggle label="Under 3 Km" onChange={this.handleThree} />
     );
     const Anydistance = () => (
-      <Radio toggle label="Any" onChange={this.handleChange} />
+      <Radio toggle label="Any" onChange={this.handleAny} />
     );
     const Threetoeight = () => (
       <Radio toggle label="3 to 8 Km" onChange={this.handleChange} />
@@ -130,6 +130,7 @@ class Search extends React.Component {
     );
   };
   render() {
+    const trips = this.state.data;
     return (
       <div>
         {" "}
@@ -147,11 +148,12 @@ class Search extends React.Component {
           </label>
           {this.tripFilters()}
         </div>
-        <div  style={{
-          display: "none"
-        }}>
-          {" "}
-          <Searchresults dataFromParent={this.state.data} />
+        <div
+        //   style={{
+        //     display: "none",
+        //   }}
+        >
+          <Searchresults dataFromParent={trips} />
         </div>
       </div>
     );
