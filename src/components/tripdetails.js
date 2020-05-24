@@ -4,6 +4,8 @@ import "../Search.css";
 import { Card, Button, CardGroup } from "react-bootstrap";
 import { FcFlashOff, FcFlashOn, FcCheckmark, FcDislike } from "react-icons/fc";
 import StarRatings from "react-star-ratings";
+import { Map, GoogleApiWrapper } from "google-maps-react";
+import MapContainer from "./map";
 
 class Tripdetails extends React.Component {
   constructor(props) {
@@ -20,6 +22,10 @@ class Tripdetails extends React.Component {
   render() {
     const { message, loading } = this.state;
     const { query } = this.state;
+    const mapStyles = {
+      width: "100%",
+      height: "100%",
+    };
     return (
       <div>
         <div className="container">
@@ -72,6 +78,9 @@ class Tripdetails extends React.Component {
               </Card.Body>
             </Card>
           </CardGroup>
+          <Card>
+            <MapContainer />
+          </Card>
         </div>
       </div>
     );

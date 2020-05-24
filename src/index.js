@@ -8,6 +8,8 @@ import Searchresults from "./components/searchresults";
 import Search from "./components/Search";
 import Tripdetails from "./components/tripdetails";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import MapContainer from "./components/map";
+
 
 ReactDOM.render(
     <Router>
@@ -23,6 +25,9 @@ ReactDOM.render(
           <li>
             <Link to="/tripdetails">Trip Details</Link>
           </li>
+          {/* <li>
+            <Link to="/map">Map</Link>
+          </li> */}
         </ul>
       </nav>
 
@@ -32,6 +37,9 @@ ReactDOM.render(
         <Route path="/trips">
           <Searchresults />
         </Route>
+        {/* <Route path="/map">
+          <MapContainer />
+        </Route> */}
         <Route path="/tripdetails">
           <Tripdetails />
         </Route>
