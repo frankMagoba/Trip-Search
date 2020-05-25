@@ -9,14 +9,22 @@ class Search extends React.Component {
   constructor() {
     super();
     this.state = {
-      data: Trips,
+      showComponent: false,
+      data: Trips
     };
-    console.log(this.state.data);
+    this._onButtonClick = this._onButtonClick.bind(this);
   }
   handleOnInputChange = (event) => {
     const query = event.target.value;
+    this.setState({
+      data: this.state.data.filter((trip) => trip.driver_name === query),
+    });
   };
-
+  _onButtonClick() {
+    this.setState({
+      showComponent: true,
+    });
+  }
   handleCheck = (event) => {
     this.setState({ data: Trips });
   };
@@ -174,7 +182,7 @@ class Search extends React.Component {
             </div>
           </div>{" "}
         </div>
-        <Link to="/trips">Search</Link>
+        {/* <Link to="/trips">Search</Link> */}
       </div>
     );
   };
@@ -190,6 +198,7 @@ class Search extends React.Component {
           <label className="search-label" htmlFor="search-input">
             <input
               type="text"
+              value=""
               id="search-input"
               placeholder="Search..."
               onChange={this.handleOnInputChange}
@@ -202,7 +211,10 @@ class Search extends React.Component {
         //     display: "none",
         //   }}
         >
-          <Searchresults dataFromParent={trips} />
+          <Button onClick={this._onButtonClick}>Search</Button>
+          {this.state.showComponent ? (
+            <Searchresults dataFromParent={trips} />
+          ) : null}
         </div>
       </div>
     );

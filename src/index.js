@@ -14,7 +14,7 @@ import MapContainer from "./components/map";
 ReactDOM.render(
     <Router>
     <div>
-      <nav>
+      {/* <nav>
         <ul>
           <li>
             <Link to="/">Search</Link>
@@ -23,7 +23,7 @@ ReactDOM.render(
             <Link to="/tripdetails">Trip Details</Link>
           </li>
         </ul>
-      </nav>
+      </nav> */}
 
       {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}

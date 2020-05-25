@@ -11,23 +11,21 @@ class Searchresults extends React.Component {
   constructor() {
     super();
     this.state = {
+      showComponent: false,
       data: Trips,
     };
   }
 
   detail(id) {
-    console.log(id);
     this.setState({
       data: this.state.data.filter((trip) => trip.id === id),
+      showComponent: true,
     });
   }
   render() {
-    console.log(this.props.dataFromParent);
     const trips = this.props.dataFromParent;
     return (
       <div>
-        <Tripdetails dataFromParent={this.state.data} />
-
         <div className="container">
           {/*Heading*/}
           <h2 className="heading">Trips</h2>
@@ -61,7 +59,10 @@ class Searchresults extends React.Component {
                   {/* <Link to="/tripdetails">View Trip Details</Link> */}
                   <button onClick={() => this.detail(trip.id)}>
                     View Trip Details
-                  </button>
+                  </button>{" "}
+                  {this.state.showComponent ? (
+                    <Tripdetails dataFromParent={this.state.data} />
+                  ) : null}
                 </Card.Body>
                 <Card.Footer className="text-muted">
                   {trip.status}{" "}
