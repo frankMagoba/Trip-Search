@@ -13,15 +13,18 @@ class Search extends React.Component {
       searchResults: false,
       tripDetails: false,
       data: Trips,
+      complete: false,
+      completer: false,
     };
     this._onButtonClick = this._onButtonClick.bind(this);
   }
   handleOnInputChange = (e) => {
-    let searchText = e.target.value
+    let searchText = e.target.value;
     this.setState({
       data: this.state.data.filter(
         (trip) =>
-          trip.driver_name.toLowerCase().includes(searchText.toLowerCase()) || !searchText
+          trip.driver_name.toLowerCase().includes(searchText.toLowerCase()) ||
+          !searchText
       ),
     });
     console.log(this.state.data);
@@ -32,18 +35,23 @@ class Search extends React.Component {
     });
   }
   handleCheck = (event) => {
-    this.setState({ data: Trips });
+    this.setState({
+      complete: !this.state.complete,
+      data: Trips,
+    });
   };
 
   handleThree = (event) => {
     this.setState({
       data: this.state.data.filter((trip) => trip.distance < 3),
+      completer: !this.state.completer,
     });
   };
 
   handleAny = (event) => {
     this.setState({
       data: this.state.data.filter((trip) => trip.distance > 0),
+      completeany: !this.state.completeany,
     });
   };
   handleEight = (event) => {
@@ -51,6 +59,7 @@ class Search extends React.Component {
       data: this.state.data.filter(
         (trip) => trip.distance > 3 || trip.distance < 8
       ),
+      completeeight: !this.state.completeeight,
     });
   };
   handleFifteen = (event) => {
@@ -58,22 +67,26 @@ class Search extends React.Component {
       data: this.state.data.filter(
         (trip) => trip.distance > 8 || trip.distance < 15
       ),
+      completefift: !this.state.completefift,
     });
   };
 
   handleMore = (event) => {
     this.setState({
       data: this.state.data.filter((trip) => trip.distance > 15),
+      completex: !this.state.completex,
     });
   };
   threeMin = (event) => {
     this.setState({
       data: this.state.data.filter((trip) => trip.duration < 5),
+      threem: !this.state.threem,
     });
   };
   anyTime = (event) => {
     this.setState({
       data: this.state.data.filter((trip) => trip.duration > 0),
+      anym: !this.state.anym,
     });
   };
   eightMins = (event) => {
@@ -81,6 +94,7 @@ class Search extends React.Component {
       data: this.state.data.filter(
         (trip) => trip.duration > 5 || trip.duration < 10
       ),
+      eightm: !this.state.eightm,
     });
   };
   tenMins = (event) => {
@@ -88,11 +102,13 @@ class Search extends React.Component {
       data: this.state.data.filter(
         (trip) => trip.duration > 10 || trip.duration < 20
       ),
+      fiftm: !this.state.fiftm,
     });
   };
   fiftMin = (event) => {
     this.setState({
       data: this.state.data.filter((trip) => trip.duration > 20),
+      morex: !this.state.morex,
     });
   };
 
@@ -107,39 +123,89 @@ class Search extends React.Component {
     const CheckboxExampleChecked = () => (
       <Checkbox
         label="Include Cancelled Trips"
-        defaultChecked
+        defaultChecked={this.state.complete}
         onChange={this.handleCheck}
       />
     );
     const Underthree = () => (
-      <Radio toggle label="Under 3 Km" onChange={this.handleThree} />
+      <Radio
+        toggle
+        defaultChecked={this.state.completer}
+        label="Under 3 Km"
+        onChange={this.handleThree}
+      />
     );
     const Anydistance = () => (
-      <Radio toggle label="Any" onChange={this.handleAny} />
+      <Radio
+        toggle
+        defaultChecked={this.state.completeany}
+        label="Any"
+        onChange={this.handleAny}
+      />
     );
     const Threetoeight = () => (
-      <Radio toggle label="3 to 8 Km" onChange={this.handleEight} />
+      <Radio
+        toggle
+        defaultChecked={this.state.completeeight}
+        label="3 to 8 Km"
+        onChange={this.handleEight}
+      />
     );
     const Eighttofifteen = () => (
-      <Radio toggle label="8 to 15 Km" onChange={this.handleFifteen} />
+      <Radio
+        toggle
+        defaultChecked={this.state.completefift}
+        label="8 to 15 Km"
+        onChange={this.handleFifteen}
+      />
     );
     const Morethanfifteen = () => (
-      <Radio toggle label="More tham 15km" onChange={this.handleMore} />
+      <Radio
+        toggle
+        defaultChecked={this.state.completex}
+        label="More tham 15km"
+        onChange={this.handleMore}
+      />
     );
     const Underthreet = () => (
-      <Radio toggle label="Under 5 min" onChange={this.threeMin} />
+      <Radio
+        toggle
+        defaultChecked={this.state.threem}
+        label="Under 5 min"
+        onChange={this.threeMin}
+      />
     );
     const Anydistancet = () => (
-      <Radio toggle label="Any" onChange={this.anyTime} />
+      <Radio
+        toggle
+        defaultChecked={this.state.anym}
+        label="Any"
+        onChange={this.anyTime}
+      />
     );
     const Threetoeightt = () => (
-      <Radio toggle label="5 to 10 min" onChange={this.eightMins} />
+      <Radio
+        toggle
+        defaultChecked={this.state.eightm}
+        label="5 to 10 min"
+        onChange={this.eightMins}
+      />
     );
     const Eighttofifteent = () => (
-      <Radio toggle label="10 to 20 min" onChange={this.tenMins} />
+      <Radio
+        toggle
+        defaultChecked={this.state.fiftm}
+        label="10 to 20 min"
+        onChange={this.tenMins}
+      />
     );
     const Morethanfifteent = () => (
-      <Radio toggle label="More tham 20 min" onChange={this.fiftMin} />
+      <Radio
+        toggle
+        defaultChecked={this.state.morex}
+        label="More tham 20 min"
+        onChange={this.fiftMin}
+      />
     );
     return (
       <div>
