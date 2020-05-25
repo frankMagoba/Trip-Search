@@ -3,13 +3,18 @@ import "./App.css";
 import Search from "./components/Search";
 
 class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      search: true,
+      searchResults: false,
+      tripDetails: false
+    };
+  }
+
   render() {
     return (
-      <div
-        style={{
-          background: "#282c34"
-        }}
-      >
+      <div>
         <Search />
       </div>
     );

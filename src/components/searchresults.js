@@ -7,28 +7,37 @@ import StarRatings from "react-star-ratings";
 import Trips from "../info-json";
 import { Link } from "react-router-dom";
 import Tripdetails from "./tripdetails";
+import { BsFillBackspaceFill } from "react-icons/bs";
 class Searchresults extends React.Component {
   constructor() {
     super();
     this.state = {
-      showComponent: false,
-      data: Trips,
+      searchResults: true,
     };
   }
 
   detail(id) {
     this.setState({
-      data: this.state.data.filter((trip) => trip.id === id),
-      showComponent: true,
+      //   data: this.state.data.filter((trip) => trip.id === id),
+      data: Trips.filter((trip) => trip.id === id),
+      searchResults: false,
     });
   }
   render() {
     const trips = this.props.dataFromParent;
-    return (
+    // console.log(trips);
+    // const trips = Trips;
+    const currentView = this.state.searchResults ? (
       <div>
         <div className="container">
           {/*Heading*/}
-          <h2 className="heading">Trips</h2>
+          <h4 className="heading">
+            {" "}
+            <Link to="/">
+              <BsFillBackspaceFill />
+            </Link>
+          </h4>
+          <h2 className="heading"> Trips</h2>
         </div>
         <div className="container">
           {/*Heading*/}
@@ -77,7 +86,10 @@ class Searchresults extends React.Component {
           ))}
         </div>
       </div>
+    ) : (
+      <Tripdetails dataFromParent={this.state.data} />
     );
+    return <div>{currentView}</div>;
   }
 }
 export default Searchresults;

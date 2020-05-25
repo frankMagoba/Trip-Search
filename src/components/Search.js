@@ -9,8 +9,10 @@ class Search extends React.Component {
   constructor() {
     super();
     this.state = {
-      showComponent: false,
-      data: Trips
+      search: true,
+      searchResults: false,
+      tripDetails: false,
+      data: Trips,
     };
     this._onButtonClick = this._onButtonClick.bind(this);
   }
@@ -22,7 +24,7 @@ class Search extends React.Component {
   };
   _onButtonClick() {
     this.setState({
-      showComponent: true,
+      search: false
     });
   }
   handleCheck = (event) => {
@@ -188,7 +190,7 @@ class Search extends React.Component {
   };
   render() {
     const trips = this.state.data;
-    return (
+    const currentView = this.state.search ? (
       <div>
         {" "}
         <div className="container">
@@ -210,13 +212,15 @@ class Search extends React.Component {
         //     display: "none",
         //   }}
         >
-          <Button onClick={this._onButtonClick}>Search</Button>
-          {this.state.showComponent ? (
-            <Searchresults dataFromParent={trips} />
-          ) : null}
+          <Button className="ml-4" onClick={this._onButtonClick}>
+            Search
+          </Button>
         </div>
       </div>
+    ) : (
+      <Searchresults dataFromParent={this.state.data} />
     );
+    return <div>{currentView}</div>;
   }
 }
 export default Search;
