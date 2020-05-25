@@ -13,36 +13,53 @@ class Searchresults extends React.Component {
     super();
     this.state = {
       searchResults: true,
+      data: Trips,
+      //   search: false,
+      currentView: false,
+      //   foundTrips: [],
     };
+    this.render = this.render.bind(this);
+    this.foundTrips = [];
   }
 
   detail(id) {
     this.setState({
-      //   data: this.state.data.filter((trip) => trip.id === id),
       data: Trips.filter((trip) => trip.id === id),
       searchResults: false,
     });
   }
+
+  getData() {
+    // this.setState({
+    //   data: Trips,
+    // });
+    // this.state.data = Trips;
+  }
+
+  back() {
+    this.setState({
+      searchResults: false,
+    });
+  }
   render() {
-    const trips = this.props.dataFromParent;
-    // console.log(trips);
-    // const trips = Trips;
+    typeof this.props.dataFromParent === "undefined"
+      ? (this.foundTrips = this.state.data)
+      : (this.foundTrips = this.props.dataFromParent);
     const currentView = this.state.searchResults ? (
       <div>
         <div className="container">
           {/*Heading*/}
           <h4 className="heading">
-            {" "}
-            <Link to="/">
+            <Button variant="outline-warning" onClick={() => this.back()}>
               <BsFillBackspaceFill />
-            </Link>
+            </Button>
           </h4>
           <h2 className="heading"> Trips</h2>
         </div>
         <div className="container">
           {/*Heading*/}
 
-          {trips.map((trip) => (
+          {this.foundTrips.map((trip) => (
             <li key={trip.id}>
               <Card className="text-center">
                 <Card.Header as="h5">{trip.request_date}</Card.Header>
@@ -66,9 +83,12 @@ class Searchresults extends React.Component {
                     name="rating"
                   />
                   {/* <Link to="/tripdetails">View Trip Details</Link> */}
-                  <button onClick={() => this.detail(trip.id)}>
+                  <Button
+                    variant="outline-success"
+                    onClick={() => this.detail(trip.id)}
+                  >
                     View Trip Details
-                  </button>{" "}
+                  </Button>{" "}
                   {this.state.showComponent ? (
                     <Tripdetails dataFromParent={this.state.data} />
                   ) : null}
@@ -87,7 +107,7 @@ class Searchresults extends React.Component {
         </div>
       </div>
     ) : (
-      <Tripdetails dataFromParent={this.state.data} />
+      <Tripdetails getData={this.getData} dataFromParent={this.state.data} />
     );
     return <div>{currentView}</div>;
   }

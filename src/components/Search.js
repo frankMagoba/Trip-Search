@@ -16,15 +16,19 @@ class Search extends React.Component {
     };
     this._onButtonClick = this._onButtonClick.bind(this);
   }
-  handleOnInputChange = (event) => {
-    const query = event.target.value;
+  handleOnInputChange = (e) => {
+    let searchText = e.target.value
     this.setState({
-      data: this.state.data.filter((trip) => trip.driver_name === query),
+      data: this.state.data.filter(
+        (trip) =>
+          trip.driver_name.toLowerCase().includes(searchText.toLowerCase()) || !searchText
+      ),
     });
+    console.log(this.state.data);
   };
   _onButtonClick() {
     this.setState({
-      search: false
+      search: false,
     });
   }
   handleCheck = (event) => {
@@ -200,6 +204,7 @@ class Search extends React.Component {
           <label className="search-label" htmlFor="search-input">
             <input
               type="text"
+              name="searchText"
               id="search-input"
               placeholder="Search..."
               onChange={this.handleOnInputChange}
@@ -212,7 +217,11 @@ class Search extends React.Component {
         //     display: "none",
         //   }}
         >
-          <Button className="ml-4" onClick={this._onButtonClick}>
+          <Button
+            variant="outline-secondary"
+            className="ml-4"
+            onClick={this._onButtonClick}
+          >
             Search
           </Button>
         </div>

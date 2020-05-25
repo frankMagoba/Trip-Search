@@ -1,18 +1,41 @@
 import React from "react";
 import "../Search.css";
 import { Card, Button, CardGroup } from "react-bootstrap";
-import { FcFlashOff, FcFlashOn, FcCheckmark, FcDislike } from "react-icons/fc";
+import { FcFlashOff, FcFlashOn } from "react-icons/fc";
 import StarRatings from "react-star-ratings";
 import MapContainer from "./map";
+import { Link } from "react-router-dom";
+import { BsFillBackspaceFill, BsFillAspectRatioFill } from "react-icons/bs";
+import Searchresults from "./searchresults";
+import Trips from "../info-json";
 
 class Tripdetails extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      tripDetails: true,
+      data: Trips,
+    };
+  }
+
+  back() {
+    this.setState({
+      tripDetails: false,
+    });
+    this.props.getData();
+  }
   render() {
     console.log(this.props.dataFromParent);
     const trips = this.props.dataFromParent;
     console.log(trips);
-    return (
+    const currentView = this.state.tripDetails ? (
       <div>
         <div className="container">
+          <h4 className="heading">
+            <Button variant="outline-warning" onClick={() => this.back()}>
+              <BsFillBackspaceFill />
+            </Button>
+          </h4>
           {/*Heading*/}
           <h2 className="heading">Trip Details</h2>
         </div>
@@ -22,7 +45,10 @@ class Tripdetails extends React.Component {
               <Card className="text-center">
                 <Card.Header as="h5">
                   {trip.dropoff_date}
-                  {trip.dropoff_date} {""} {trip.cost_unit}
+                  {trip.dropoff_date} {""} <BsFillAspectRatioFill />
+                  {""}
+                  {trip.cost_unit}
+                  {""}
                   {trip.cost}
                 </Card.Header>
                 <Card.Body>
@@ -44,6 +70,7 @@ class Tripdetails extends React.Component {
                   <Card.Body>
                     <Card.Title>
                       {trip.car_make}
+                      {""}
                       {trip.car_model}
                     </Card.Title>
                   </Card.Body>
@@ -85,7 +112,10 @@ class Tripdetails extends React.Component {
           </li>
         ))}
       </div>
+    ) : (
+      <Searchresults />
     );
+    return <div>{currentView}</div>;
   }
 }
 export default Tripdetails;
